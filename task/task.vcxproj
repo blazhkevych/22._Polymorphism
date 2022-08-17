@@ -127,7 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DVD.cpp" />
+    <ClCompile Include="HDD.cpp" />
+    <ClCompile Include="InformationCarrier.cpp" />
     <ClCompile Include="task.cpp" />
+    <ClCompile Include="USB.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DVD.h" />
+    <ClInclude Include="HDD.h" />
+    <ClInclude Include="InformationCarrier.h" />
+    <ClInclude Include="USB.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
