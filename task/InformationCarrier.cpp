@@ -1,6 +1,7 @@
 ﻿#include "InformationCarrier.h"
 
 #include <iostream>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -16,62 +17,76 @@ InformationCarrier::InformationCarrier(string companyName, string productModel, 
 InformationCarrier::~InformationCarrier() = default;
 
 // Установить значение поля "Имя производителя".
-void InformationCarrier::setCompanyName(string companyName)
+void InformationCarrier::set_companyName(string companyName)
 {
 	m_companyName = companyName;
 }
 
 // Установить значение поля "Модель".
-void InformationCarrier::setProductModel(string productModel)
+void InformationCarrier::set_productModel(string productModel)
 {
 	m_productModel = productModel;
 }
 
 // Установить значение поля "Наименование".
-void InformationCarrier::setProductName(string productName)
+void InformationCarrier::set_productName(string productName)
 {
 	m_productName = productName;
 }
 
 // Установить значение поля "Ёмкость носителя".
-void InformationCarrier::setSize(int size)
+void InformationCarrier::set_size(int size)
 {
 	m_size = size;
 }
 
 // Установить значение поля "Количество носителей".
-void InformationCarrier::setCount(int count)
+void InformationCarrier::set_count(int count)
 {
 	m_count = count;
 }
 
+// Установить значения всех полей объекта "InformationCarrier".
+void InformationCarrier::set_allFields()
+{
+	cout << endl
+		<< "Имя производителя: ";
+	cin >> m_companyName;
+	cout << "Модель: ";
+	cin >> m_productModel;
+	cout << "Ёмкость носителя: ";
+	cin >> m_size;
+	cout << "Количество носителей: ";
+	cin >> m_count;
+}
+
 // Получить значение поля "Имя производителя".
-string InformationCarrier::getCompanyName() { return m_companyName; }
+string InformationCarrier::get_companyName() { return m_companyName; }
 
 // Получить значение поля "Модель".
-string InformationCarrier::getProductModel() { return m_productModel; }
+string InformationCarrier::get_productModel() { return m_productModel; }
 
 // Получить значение поля "Наименование".
-string InformationCarrier::getProductName() { return m_productName; }
+string InformationCarrier::get_productName() { return m_productName; }
 
 // Получить значение поля "Ёмкость носителя".
-int InformationCarrier::getCount() const { return m_count; }
+int InformationCarrier::get_count() const { return m_count; }
 
 // Получить значение поля "Количество носителей".
-int InformationCarrier::getSize() const { return m_size; }
+int InformationCarrier::get_size() const { return m_size; }
 
-// Заполнение обьекта случайными данными.
+// Заполнение объекта "InformationCarrier" случайными данными.
 void InformationCarrier::RandomFill()
 {
 	m_companyName = rand() % 27 + 65; // TODO: проверить как работает
 	m_productModel = rand() % 27 + 65; // TODO: проверить как работает
-	m_productName = rand() % 27 + 65; // TODO: проверить как работает
+	//m_productName = rand() % 27 + 65; // TODO: проверить как работает
 
 	m_count = rand() % 50;
 	m_size = rand() % 50;
 }
 
-// Печать объекта.
+// Печать объекта "InformationCarrier".
 void InformationCarrier::Print()
 {
 	cout << "Имя производителя: " << m_companyName << endl;
@@ -81,15 +96,15 @@ void InformationCarrier::Print()
 	cout << "Количество носителей: " << m_count << endl;
 }
 
-// Запись в текстовый файл.
+// Запись объекта "InformationCarrier" в текстовый файл.
 void InformationCarrier::Write(ofstream& out)
 {
-	if (!out.is_open())
+	/*if (!out.is_open())
 	{
 		cout << "Error!";
 		return;
 	}
-	ofstream out("output.txt");
+	ofstream out("output.txt");*/
 
 	/*std::string input;
 	std::cin >> input;
@@ -113,14 +128,14 @@ void InformationCarrier::Write(ofstream& out)
 	out.write((char*)&this->m_size, sizeof(this->m_size));*/
 }
 
-// Чтение из текстового файла.
+// Чтение объекта "InformationCarrier" из текстового файла.
 void InformationCarrier::Read(ifstream& in) {
-	int sizes[3];
+	/*int sizes[3];
 	if (!in.is_open())
 	{
 		cout << "Error!";
 		return;
-	}
+	}*/
 
 
 	/*in.read((char*)&sizes[0], sizeof(sizes[0]));

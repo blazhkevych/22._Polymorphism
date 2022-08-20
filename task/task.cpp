@@ -40,10 +40,12 @@
 02,36,46
 */
 
+#include "MediaList.h"
+
 #include <Windows.h>
 #include <iostream>
+#include <conio.h>
 
-#include "InformationCarrier.h"
 using std::cout;
 using std::cin;
 using std::endl;
@@ -63,57 +65,86 @@ int main()
 	записанных различными функциями вывода, в изображения, отображаемые в окне консоли.
 	*/
 
-	InformationCarrier arr;		//Создание массива
+	srand(time(0));
+
+	MediaList list{};	// Создание массива.
+
+	// TODO: место для загрузки из файла.
 
 	while (true)
 	{
-		cout << "----------------------------------Storage InformationCarrier----------------------------------" << endl;
-		cout << "1) Заполнить элемент случайными значениями (Для удобства дебага)" << endl;
-		cout << "2) Вывести содержимое массива" << endl;
-		cout << "3) Внести изменение в элемент" << endl;
-		cout << "4) Удаление элемента массива" << endl;
-		cout << "5) Поиск в массиве по значению" << endl;
-		cout << "6) Добавить элемент" << endl;
-		cout << "7) Запись в файл" << endl;
-		cout << "8) Выгрузка из файла" << endl;
-		cout << "9) Выход" << endl;
-		int choi;
-		int a;
-		cout << "Выбор :";
-		cin >> choi;
-		switch (choi)
+		system("cls");
+		cout << "\tГлавное меню." << endl
+			<< "\n1. Добавить носитель."
+			<< "\n2. Удалить носитель."
+			<< "\n3. Печать носителей."
+			<< "\n4. Изменить носитель."
+			<< "\n5. Поиск носителя."
+			<< "\n6. Выход" << endl;
+		int choice_mainMenu{};
+		int number{};
+		cout << "\n >>> : ";
+		cin >> choice_mainMenu;
+		switch (choice_mainMenu)
 		{
-		case 1:
-			arr.rand__str();
+		case 1:														// 1. Добавить носитель. // OK
+			system("cls");
+			cout << "Главное меню."
+				"\n\t1. Добавить носитель."
+				<< endl;
+			list.AddDevice();
+			cout << "\nГотово !" << endl
+				<< "\nДля продолжения нажмите любую клавишу." << endl;
+			_getch();
 			break;
-		case 2:
-			arr.Print();
+		case 2:														// 2. Удалить носитель. //
+			system("cls");
+			cout << "Главное меню."
+				"\n\t2. Удалить носитель."
+				<< endl;
+			list.Delete(number);
+			cout << "\nГотово !" << endl
+				<< "\nДля продолжения нажмите любую клавишу." << endl;
+			_getch();
 			break;
-		case 3:
-			cout << "Номер элемента	:" << endl;
-			cin >> a;
-			arr.chan(a);
+		case 3: // 3. Печать носителей. // OK TODO: Дописать печать по видам носителей
+			system("cls");
+			cout << "Главное меню."
+				"\n\t3. Печать носителей."
+				<< endl;
+			list.PrintAll();
+			cout << "\nГотово !" << endl
+				<< "\nДля продолжения нажмите любую клавишу." << endl;
+			_getch();
 			break;
-		case 4:
-			cout << "Номер элемента	:" << endl;
-			cin >> a;
-			arr.dell(a);
+		case 4: // 4. Изменить носитель.
+			system("cls");
+			cout << "Главное меню."
+				"\n\t4. Изменить носитель."
+				<< endl;
+			list.PrintAll();
+			cout << "\nВведите номер элемента в списке: ";
+			cin >> number;
+			list.Change(number);
+			cout << "\nГотово !" << endl
+				<< "\nДля продолжения нажмите любую клавишу." << endl;
+			_getch();
 			break;
-		case 5:
-			arr.search();
+		case 5: // 5. Поиск носителя.
+			system("cls");
+			cout << "Главное меню."
+				"\n\t5. Поиск носителя."
+				<< endl;
+			list.Search();
+			cout << "\nГотово !" << endl
+				<< "\nДля продолжения нажмите любую клавишу." << endl;
+			_getch();
 			break;
 		case 6:
-			arr.add();
-			break;
-		case 7:
-			arr.write();
-			break;
-		case 8:
-			arr.read();
-			break;
-		case 9:
+			// TODO: место для сохранения в файл. // 6. Выход
 			return 0;
 		default:
+			cout << "Ошибка !" << endl;
 			break;
 		}
 	}

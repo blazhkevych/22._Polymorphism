@@ -3,70 +3,67 @@
 #include <iostream>
 using std::cout;
 using std::cin;
+using std::endl;
 
 // Конструктор без параметров.
-USB::USB() :m_speed(0) {}
+USB::USB() :InformationCarrier(), m_speed(0)
+{
+	m_productName = "USB";
+}
+
+// Деструктор.
+USB::~USB() = default;
 
 // Конструктор со всеми параметрами.
 USB::USB(string companyName, string productModel, string productName, int size, int count, int speed)
-	:InformationCarrier(companyName, productModel, productName, size, count), m_speed(speed) {}
-
-// Деструктор.
-//USB::~USB() {}
-
-int USB::ret_class() { return 1; }
-
-void USB::SetFields() {
-	InformationCarrier::RandomFill();
-	cout << "Produkt m_speed:";
-	cin >> this->m_speed;
+	:InformationCarrier(companyName, productModel, productName, size, count), m_speed(speed)
+{
+	set_productName("USB");
 }
 
-void USB::settr(char* com_name, char* produkt_model_name, char* produkt_name, int count, int size, int speed) {
-	InformationCarrier::SetFields(com_name, produkt_model_name, produkt_name, count, size/*, m_speed*/);
-	speed = this->m_speed;
+// Установить значение поля "Скорость USB".
+void USB::set_speed(int speed)
+{
+	m_speed = speed;
 }
 
-char* USB::get_companyName() { return InformationCarrier::getCompanyName(); }
+// Установить значения всех полей обьекта "USB".
+void USB::set_allFields()
+{
+	InformationCarrier::set_allFields();
+	cout << "Скорость USB: ";
+	cin >> m_speed;
+}
 
-char* USB::get_productModel() { return InformationCarrier::getProductModel(); }
+// Получить значение поля "Скорость USB".
+int USB::get_speed()
+{
+	return this->m_speed;
+}
 
-char* USB::get_productName() { return InformationCarrier::getProductName(); }
-
-int USB::get_Size() { return InformationCarrier::getSize(); }
-
-int USB::get_Count() { return InformationCarrier::getCount(); }
-
-int USB::get_speed() { return this->m_speed; }
-
-void USB::RandomFill() {
+// Заполнение обьекта случайными данными.
+void USB::RandomFill()
+{
 	InformationCarrier::RandomFill();
 	m_speed = rand() % 50;
 }
 
-void USB::Print() {
-	std::cout << std::endl;
+// Печать объекта "USB".
+void USB::Print()
+{
+	cout << endl;
 	InformationCarrier::Print();
-	std::cout << "Product m_speed: " << this->m_speed << std::endl;
+	cout << "Скорость USB: " << m_speed << endl;
 }
 
-void USB::Write(ofstream& out) {
-	if (!out.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-
-	InformationCarrier::Write(out);
-	out.write((char*)&m_speed, sizeof(m_speed));
+// Запись объекта "USB" в текстовый файл.
+void USB::Write(ofstream& out)
+{
+	// TODO: написать реализацию
 }
-void USB::Read(ifstream& in) {
-	int sizes[3];
-	if (!in.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-	InformationCarrier::Read(in);
-	in.read((char*)&m_speed, sizeof(m_speed));
+
+// Чтение объекта "USB" из текстового файла.
+void USB::Read(ifstream& in)
+{
+	// TODO: написать реализацию
 }

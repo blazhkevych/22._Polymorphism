@@ -1,7 +1,8 @@
 ﻿#pragma once
+
 #include "InformationCarrier.h"
 
-class USB final : public InformationCarrier // Класс «USB-флеш-накопитель».
+class USB : public InformationCarrier // Класс «USB-флеш-накопитель».
 {
 	int m_speed; // Скорость USB.
 public:
@@ -14,22 +15,27 @@ public:
 	USB(string companyName, string productModel, string productName, int size, int count, int speed);
 
 	// Деструктор.
-	//~USB(); // TODO: а нужен ли ?????????????
+	~USB() override;
 
-	// TODO: Продолжить отсюда реализацию нужных, не всех скорее всего, а только гет/сет для USB поля speed.
+	// Установить значение поля "Скорость USB".
+	void set_speed(int speed);
 
+	// Установить значения всех полей обьекта "USB".
+	void set_allFields() override;
 
-	void SetFields();
-	void settr(char* com_name, char* produkt_model_name, char* produkt_name, int count, int size, int speed);
-	string get_companyName();
-	string get_productModel();
-	string get_productName();
-	int get_Size();
-	int get_Count();;
+	// Получить значение поля "Скорость USB".
 	int get_speed();
-	void RandomFill();
-	void Print();
-	void Write(ofstream& out);
-	void Read(ifstream& in);
+
+	// Заполнение обьекта "USB" случайными данными.
+	void RandomFill() override;
+
+	// Печать объекта "USB".
+	void Print() override;
+
+	// Запись объекта "USB" в текстовый файл.
+	void Write(ofstream& out) override;
+
+	// Чтение объекта "USB" из текстового файла.
+	void Read(ifstream& in) override;
 };
 

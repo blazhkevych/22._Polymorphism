@@ -1,301 +1,278 @@
 #include "MediaList.h"
 
-Collection::Collection() {
-	for (int i = 0; i < ch_long; i++)
-	{
-		int r = rand() % 3;
+#include <iostream>
 
-		switch (r)
-		{
-		case 0:
-			collection[i] = new usb;
-			break;
-		case 1:
-			collection[i] = new dvd;
-			break;
+#include "DVD.h"
+#include "HDD.h"
+#include "USB.h"
 
-		case 2:
-			collection[i] = new phd;
-			break;
-		}
-		//collection[i]->SetFields();
-	}
+using std::cout;
+using std::cin;
+using std::endl;
+
+// Конструктор по умолчанию.
+MediaList::MediaList()
+{
+	m_mediaList = nullptr;
+	m_size = 0;
 }
 
+// Деструктор.
+MediaList::~MediaList()
+{
+	for (int i = 0; i < m_size; i++)
+		delete m_mediaList[i];
+	delete[] m_mediaList;
+}
 
-Collection::~Collection() {}
-
-
-void Collection::Print() {
-	int var = 1;
-	for (int i = 0; i < ch_long; i++)
+// Добавление устройства.
+void MediaList::AddDevice()
+{
+	int deviceCount;
+	do
 	{
-		cout << var << endl;
-		collection[i]->Print();
-		int type = collection[i]->ret_class();
+		cout << "\nВведите количество устройств для добавления в список: ";
+		cin >> deviceCount;
+		cin.get();
+	} while (deviceCount <= 0);
+
+	InformationCarrier** temp = new InformationCarrier * [m_size + deviceCount];
+	for (int i = 0; i < m_size; i++)
+		temp[i] = m_mediaList[i];
+
+	int inputNumOfStud{ 0 };
+	for (int i = m_size; i < m_size + deviceCount; i++)
+	{
+		cout << "\nВыберите тип " << inputNumOfStud << " устройства: ";
+		inputNumOfStud++;
+
+		cout << "\n(1 - USB, 2 - DVD, 3 - HDD): ";
+		int type;
+		cin >> type;
+
 		switch (type)
 		{
-		case 0:
-			cout << "Base" << endl;
-			break;
 		case 1:
-			cout << "USB" << endl;
+			temp[m_size + i] = new USB;
 			break;
 		case 2:
-			cout << "PHD" << endl;
+			temp[m_size + i] = new DVD;
 			break;
 		case 3:
-			cout << "DVD" << endl;
+			temp[m_size + i] = new HDD;
 			break;
 		default:
 			break;
-
 		}
+
+		temp[m_size + i]->set_allFields();
+	}
+
+	delete[] m_mediaList;
+	m_size = m_size + deviceCount;
+	m_mediaList = temp;
+	temp = nullptr;
+}
+
+// Печать списка уcтройств.
+void MediaList::PrintAll() const
+{
+	for (int i = 0; i < m_size; i++)
+	{
+		cout << endl << "№ " << i << endl;
+		m_mediaList[i]->Print();
 		cout << "-------------------------------------------------------" << endl;
-		var++;
 	}
 }
 
-
-void Collection::chan(int nomb) {
-	nomb = nomb - 1;
-	collection[nomb]->settr();
-}
-
-
-void Collection::dell(int nomb) {
-	nomb = nomb - 1;
-	Base** temp = new Base * [ch_long - 1];
-	for (int i = 0; i < ch_long; i++)
+// Удаление устройства по номеру.
+void MediaList::Delete(int number)
+{
+	if (number > 0)
 	{
-		if (i < nomb) {
-			temp[i] = collection[i];
-		}
-		else if (i > nomb)
+		for (int i = 0; i < m_size; i++)
 		{
-			temp[i - 1] = collection[i];
+			cout << endl << "№ " << i << endl;
+			m_mediaList[i]->Print();
+			cout << "-------------------------------------------------------" << endl;
 		}
+
+		InformationCarrier** temp = new InformationCarrier * [m_size - 1];
+
+		for (int i = 0; i < m_size; i++)
+		{
+			if (i < number)
+			{
+				temp[i] = m_mediaList[i];
+			}
+			else if (i > number)
+			{
+				temp[i - 1] = m_mediaList[i];
+			}
+		}
+
+		delete m_mediaList[number];
+		delete[] m_mediaList;
+
+		m_size--;
+		m_mediaList = temp;
+		temp = nullptr;
 	}
-	delete collection[nomb];
-	delete[] collection;
-	ch_long--;
-	collection = temp;
-	temp = nullptr;
+	else
+		cout << endl << "Список пуст !" << endl;
 }
 
-
-void Collection::add() {
-	Base** temp = new Base * [ch_long + 1];
-	for (int i = 0; i < ch_long; i++)
+// Изменение по номеру параметров носителя.
+void MediaList::Change(int number) // TODO: определённых параметров носителя !!!! доработать.
+{
+	cout << endl << "Что будем изменять ?"
+		<< "\n1 - Имя производителя."
+		<< "\n2 - Модель."
+		<< "\n3 - Ёмкость носителя."
+		<< "\n4 - Количество носителей."
+		<< "\n5 - Скорость."
+		<< "\nВведите номер поля для изменения, затем его значение >>> : ";
+	int var;
+	cin >> var;
+	switch (var)
 	{
-		temp[i] = collection[i];
+	case 1: // Имя производителя.
+	{
+		string temp;
+		cin >> temp;
+		m_mediaList[number]->set_companyName(temp);
+		break;
 	}
-	cout << "Type : (1 - usb || 2 - dvd || 3 - phd)   :";
-	int var2;
-	cin >> var2;
-	switch (var2)
+	case 2: // Модель.
 	{
-	case 1:
-		temp[ch_long] = new usb;
+		string temp;
+		cin >> temp;
+		m_mediaList[number]->set_productModel(temp);
 		break;
-	case 2:
-		temp[ch_long] = new dvd;
+	}
+	case 3: // Ёмкость носителя.
+	{
+		int temp;
+		cin >> temp;
+		m_mediaList[number]->set_size(temp);
 		break;
-	case 3:
-		temp[ch_long] = new phd;
+	}
+	case 4: // Количество носителей.
+	{
+		int temp;
+		cin >> temp;
+		m_mediaList[number]->set_count(temp);
 		break;
+	}
+	case 5: // Скорость.
+	{
+		int temp;
+		cin >> temp;
+		for (int i = 0; i < m_size; i++)
+		{
+			if (typeid(*m_mediaList[number]) == typeid(USB))
+				dynamic_cast<USB*>(m_mediaList[number])->set_speed(temp);
+
+			if (typeid(*m_mediaList[number]) == typeid(HDD))
+				dynamic_cast<HDD*>(m_mediaList[number])->set_speed(temp);
+
+			if (typeid(*m_mediaList[number]) == typeid(DVD))
+				dynamic_cast<DVD*>(m_mediaList[number])->set_speed(temp);
+		}
+		break;
+	}
 	default:
+		cout << "Ошибка!" << endl;
 		break;
 	}
-	temp[ch_long]->settr();
-	delete[] collection;
-	ch_long++;
-	collection = temp;
-	temp = nullptr;
-}
-void Collection::rand__str() {
-	for (int i = 0; i < ch_long; i++)
-	{
-		collection[i]->rand_settr();
-	}
 }
 
-
-void Collection::search() {
-	cout << "1 - com_name \n 2 - produkt_model_name \n 3 - produkt_name \n 4 - count\n 5 - size\n 6 - speed\n";
-	cout << "Choose param.  :";
+// Поиск по заданному критерию.
+void MediaList::Search()
+{
+	cout << endl << "Что будем искать ?"
+		<< "\n1 - Имя производителя."
+		<< "\n2 - Модель."
+		<< "\n3 - Наименование."
+		<< "\n4 - Ёмкость носителя."
+		<< "\n5 - Количество носителей."
+		<< "\n6 - Скорость."
+		<< "\nВведите номер критерия для изменения, затем его значение >>> : ";
 	int var;
 	cin >> var;
 	switch (var)
 	{
 	case 1:
 	{
-		char temp[100]{};
+		string temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
-		{
-			if (!strcmp(collection[i]->get_com_name(), temp))
-			{
-				collection[i]->Print();
-			}
-		}
+		for (int i = 0; i < m_size; i++)
+			if (m_mediaList[i]->get_companyName() == temp) // Имя производителя.
+				m_mediaList[i]->Print();
 		break;
 	}
 	case 2:
 	{
-		char temp[100]{};
+		string temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
-		{
-			if (!strcmp(collection[i]->get_produkt_model_name(), temp))
-			{
-				collection[i]->Print();
-			}
-		}
+		for (int i = 0; i < m_size; i++)
+			if (m_mediaList[i]->get_productModel() == temp) // Модель.
+				m_mediaList[i]->Print();
 		break;
 	}
 	case 3:
 	{
-		char temp[100]{};
+		string temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
-		{
-			if (!strcmp(collection[i]->get_produkt_name(), temp))
-			{
-				collection[i]->Print();
-			}
-		}
+		for (int i = 0; i < m_size; i++)
+			if (m_mediaList[i]->get_productName() == temp) // Наименование.
+				m_mediaList[i]->Print();
 		break;
 	}
 	case 4:
 	{
 		int temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
-		{
-			int j = collection[i]->get_count();
-			if (j == temp)
-			{
-				collection[i]->Print();
-			}
-		}
+		for (int i = 0; i < m_size; i++)
+			if (m_mediaList[i]->get_size() == temp) // Ёмкость носителя.
+				m_mediaList[i]->Print();
 		break;
 	}
 	case 5:
 	{
 		int temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
-		{
-			int j = collection[i]->get_size();
-			if (j == temp)
-			{
-				collection[i]->Print();
-			}
-		}
+		for (int i = 0; i < m_size; i++)
+			if (m_mediaList[i]->get_count() == temp) // Количество носителей.
+				m_mediaList[i]->Print();
 		break;
 	}
 	case 6:
 	{
 		int temp;
 		cin >> temp;
-		for (int i = 0; i < ch_long; i++)
+		for (int i = 0; i < m_size; i++)
 		{
-			int j;
-			switch (collection[i]->ret_class())
-			{
-			case 1:
-			{
-				usb* temp_class1 = static_cast<usb*>(collection[i]);
-				j = temp_class1->get_speed();
-				//delete temp_class1; 
-				break;
-			}
-			case 2:
-			{
-				dvd* temp_class2 = static_cast<dvd*>(collection[i]);
-				j = temp_class2->get_speed();
-				//delete temp_class2;
-				break;
-			}
-			case 3:
-			{
-				phd* temp_class3 = static_cast<phd*>(collection[i]);
-				j = temp_class3->get_speed();
-				//delete temp_class3;
-				break;
-			}
-			}
-			if (temp == j)
-			{
-				collection[i]->Print();
-			}
+			if (typeid(*m_mediaList[i]) == typeid(USB)) // Скорость.
+				if (dynamic_cast<USB*>(m_mediaList[i])->get_speed() == temp)
+					m_mediaList[i]->Print();
+
+			if (typeid(*m_mediaList[i]) == typeid(HDD))
+				if (dynamic_cast<HDD*>(m_mediaList[i])->get_speed() == temp)
+					m_mediaList[i]->Print();
+
+			if (typeid(*m_mediaList[i]) == typeid(DVD))
+				if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
+					m_mediaList[i]->Print();
+
+			/* или проще, по идее тоже должно работать.
+			 *if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
+				m_mediaList[i]->PrintAll();*/
 		}
 		break;
 	}
 	default:
-		cout << "ERROR" << endl;
+		cout << "Ошибка!" << endl;
 		break;
-	}
-}
-
-
-void Collection::write() {
-	ofstream out("./out.txt", ios_base::out | ios_base::trunc);
-	if (!out.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-	out.write((char*)&ch_long, sizeof(ch_long));
-	for (int i = 0; i < ch_long; i++)
-	{
-		if (!out.is_open())
-		{
-			cout << "Error!";
-			return;
-		}
-		int type = collection[i]->ret_class();
-		out.write((char*)&type, sizeof(type));
-		collection[i]->write(out);
-	}
-}
-
-
-void Collection::read() {
-	for (int i = 0; i < sizeof(collection); i++)
-	{
-		delete collection[i];
-	}
-	ifstream in("./out.txt", ios_base::in);
-	if (!in.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-	in.read((char*)&ch_long, sizeof(ch_long));
-	collection = new Base * [ch_long];
-	for (int i = 0; i < ch_long; i++)
-	{
-		if (!in.is_open())
-		{
-			cout << "Error!";
-			return;
-		}
-		int type;
-		in.read((char*)&type, sizeof(type));
-		switch (type)
-		{
-		case 1:
-			collection[i] = new usb;
-			break;
-		case 2:
-			collection[i] = new dvd;
-			break;
-		case 3:
-			collection[i] = new phd;
-			break;
-		}
-		collection[i]->read(in);
 	}
 }

@@ -1,6 +1,8 @@
 ﻿#pragma once
+
 #include <fstream>
 #include <string>
+
 using std::ofstream;
 using std::ifstream;
 using std::string;
@@ -10,7 +12,7 @@ class InformationCarrier abstract // Абстрактный базовый кл�
 protected:
 	string m_companyName;		// Имя производителя.
 	string m_productModel;		// Модель.
-	string m_productName;		// Наименование. ( только для чтения(распознания объекта) из файла DVD/HDD/USB)
+	string m_productName;		// Наименование. ( только для чтения(распознания объекта) из файла DVD/HDD/USB) 
 	int m_size;					// Ёмкость носителя.
 	int m_count;				// Количество носителей.
 public:
@@ -24,44 +26,47 @@ public:
 	virtual ~InformationCarrier();
 
 	// Установить значение поля "Имя производителя".
-	void setCompanyName(string companyName);
+	void set_companyName(string companyName);
 
 	// Установить значение поля "Модель".
-	void setProductModel(string productModel);
+	void set_productModel(string productModel);
 
 	// Установить значение поля "Наименование".
-	void setProductName(string productName);
+	void set_productName(string productName);
 
 	// Установить значение поля "Ёмкость носителя".
-	void setSize(int size);
+	void set_size(int size);
 
 	// Установить значение поля "Количество носителей".
-	void setCount(int count);
+	void set_count(int count);
+
+	// Установить значения всех полей объекта "InformationCarrier".
+	virtual void set_allFields(); // TODO: переопределить в производных классах.
 
 	// Получить значение поля "Имя производителя".
-	string getCompanyName();
+	virtual string get_companyName();
 
 	// Получить значение поля "Модель".
-	string getProductModel();
+	string get_productModel();
 
 	// Получить значение поля "Наименование".
-	string getProductName();
+	string get_productName();
 
 	// Получить значение поля "Ёмкость носителя".
-	int getCount() const;
+	int get_count() const;
 
 	// Получить значение поля "Количество носителей".
-	int getSize() const;
+	int get_size() const;
 
-	// Заполнение обьекта случайными данными.
+	// Заполнение объекта "InformationCarrier" случайными данными.
 	virtual void RandomFill(); // TODO: переопределить в производных классах.
 
-	// Печать объекта.
+	// Печать объекта "InformationCarrier".
 	virtual void Print();// TODO: переопределить в производных классах.
 
-	// Запись в текстовый файл.
+	// Запись объекта "InformationCarrier" в текстовый файл.
 	virtual void Write(ofstream& out);// TODO: переопределить в производных классах.
 
-	// Чтение из текстового файла.
+	// Чтение объекта "InformationCarrier" из текстового файла.
 	virtual void Read(ifstream& in);// TODO: переопределить в производных классах.
 };

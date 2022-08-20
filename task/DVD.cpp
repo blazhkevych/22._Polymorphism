@@ -3,64 +3,67 @@
 #include <iostream>
 using std::cout;
 using std::cin;
+using std::endl;
 
-DVD::DVD() {};
-
-DVD::~DVD() {};
-
-int DVD::ret_class() { return 3; }
-
-void DVD::SetFields() {
-	InformationCarrier::SetFields();
-	cout << "Produkt m_speed:";
-	cin >> this->m_speed;
+// Конструктор без параметров.
+DVD::DVD() :InformationCarrier(), m_speed(0)
+{
+	m_productName = "DVD";
 }
 
-void DVD::settr(char* com_name, char* produkt_model_name, char* produkt_name, int count, int size, int speed) {
-	InformationCarrier::SetFields(com_name, produkt_model_name, produkt_name, count, size/*, m_speed*/);
-	speed = this->m_speed;
+// Деструктор.
+DVD::~DVD() = default;
+
+// Конструктор со всеми параметрами.
+DVD::DVD(string companyName, string productModel, string productName, int size, int count, int speed)
+	:InformationCarrier(companyName, productModel, productName, size, count), m_speed(speed)
+{
+	set_productName("DVD");
 }
 
-char* DVD::get_companyName() { return InformationCarrier::getCompanyName(); }
+// Установить значение поля "Скорость записи".
+void DVD::set_speed(int speed)
+{
+	m_speed = speed;
+}
 
-char* DVD::get_productModel() { return InformationCarrier::getProductModel(); }
+// Установить значения всех полей обьекта "DVD".
+void DVD::set_allFields()
+{
+	InformationCarrier::set_allFields();
+	cout << "Скорость записи: ";
+	cin >> m_speed;
+}
 
-char* DVD::get_productName() { return InformationCarrier::getProductName(); }
+// Получить значение поля "Скорость записи".
+int DVD::get_speed()
+{
+	return this->m_speed;
+}
 
-int DVD::get_Count() { return InformationCarrier::getCount(); }
-
-int DVD::get_Size() { return InformationCarrier::getSize(); }
-
-int DVD::get_speed() { return this->m_speed; }
-
-void DVD::RandomFill() {
+// Заполнение обьекта случайными данными.
+void DVD::RandomFill()
+{
 	InformationCarrier::RandomFill();
 	m_speed = rand() % 50;
 }
 
-void DVD::Print() {
-	std::cout << std::endl;
+// Печать объекта "DVD".
+void DVD::Print()
+{
+	cout << endl;
 	InformationCarrier::Print();
-	std::cout << "Product m_speed: " << this->m_speed << std::endl;
+	cout << "Скорость записи: " << m_speed << endl;
 }
 
-void DVD::Write(ofstream& out) {
-	if (!out.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-
-	InformationCarrier::Write(out);
-	out.write((char*)&m_speed, sizeof(m_speed));
+// Запись объекта "DVD" в текстовый файл.
+void DVD::Write(ofstream& out)
+{
+	// TODO: написать реализацию
 }
-void DVD::Read(ifstream& in) {
-	int sizes[3];
-	if (!in.is_open())
-	{
-		std::cout << "Error!";
-		return;
-	}
-	InformationCarrier::Read(in);
-	in.read((char*)&m_speed, sizeof(m_speed));
+
+// Чтение объекта "DVD" из текстового файла.
+void DVD::Read(ifstream& in)
+{
+	// TODO: написать реализацию
 }

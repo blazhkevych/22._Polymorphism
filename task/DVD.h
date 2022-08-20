@@ -1,24 +1,40 @@
 ﻿#pragma once
+
 #include "InformationCarrier.h"
-class DVD final : public InformationCarrier // класс «DVD–диск».
+
+class DVD  : public InformationCarrier // класс «DVD–диск».
 {
 	int m_speed; // Скорость записи.
 public:
 	// TODO: в каждом производном классе в конструкторе, при создании обьекта в поле "наименование" вписать USB/DVD/HDD
 	// возможно использовать type_id или просто в конструкторе жестко записать USB/DVD/HDD
+	// Конструктор без параметров.
 	DVD();
-	~DVD();
-	int ret_class();
-	void SetFields();
-	void settr(char* com_name, char* produkt_model_name, char* produkt_name, int count, int size, int speed);
-	char* get_companyName();
-	char* get_productModel();
-	char* get_productName();
-	int get_Count();
-	int get_Size();
+
+	// Конструктор со всеми параметрами.
+	DVD(string companyName, string productModel, string productName, int size, int count, int speed);
+
+	// Деструктор.
+	~DVD() override;
+
+	// Установить значение поля "Скорость записи".
+	void set_speed(int speed);
+
+	// Установить значения всех полей обьекта "DVD".
+	void set_allFields() override;
+
+	// Получить значение поля "Скорость записи".
 	int get_speed();
-	void RandomFill();
-	void Print();
-	void Write(ofstream& out);
-	void Read(ifstream& in);
+
+	// Заполнение обьекта "DVD" случайными данными.
+	void RandomFill() override;
+
+	// Печать объекта "DVD".
+	void Print() override;
+
+	// Запись объекта "DVD" в текстовый файл.
+	void Write(ofstream& out) override;
+
+	// Чтение объекта "DVD" из текстового файла.
+	void Read(ifstream& in) override;
 };
