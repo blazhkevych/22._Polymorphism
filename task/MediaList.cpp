@@ -25,6 +25,12 @@ MediaList::~MediaList()
 	delete[] m_mediaList;
 }
 
+// Получить количество устройств в списке.
+int MediaList::get_size() const
+{
+	return m_size;
+}
+
 // Добавление устройства.
 void MediaList::AddDevice()
 {
@@ -79,7 +85,7 @@ void MediaList::PrintAll() const
 {
 	for (int i = 0; i < m_size; i++)
 	{
-		cout << endl << "№ " << i << endl;
+		cout << endl << "Устройство № " << i << endl;
 		m_mediaList[i]->Print();
 		cout << "-------------------------------------------------------" << endl;
 	}
@@ -88,38 +94,33 @@ void MediaList::PrintAll() const
 // Удаление устройства по номеру.
 void MediaList::Delete(int number)
 {
-	if (number > 0)
+	for (int i = 0; i < m_size; i++)
 	{
-		for (int i = 0; i < m_size; i++)
-		{
-			cout << endl << "№ " << i << endl;
-			m_mediaList[i]->Print();
-			cout << "-------------------------------------------------------" << endl;
-		}
-
-		InformationCarrier** temp = new InformationCarrier * [m_size - 1];
-
-		for (int i = 0; i < m_size; i++)
-		{
-			if (i < number)
-			{
-				temp[i] = m_mediaList[i];
-			}
-			else if (i > number)
-			{
-				temp[i - 1] = m_mediaList[i];
-			}
-		}
-
-		delete m_mediaList[number];
-		delete[] m_mediaList;
-
-		m_size--;
-		m_mediaList = temp;
-		temp = nullptr;
+		cout << endl << "Устройство № " << i << endl;
+		m_mediaList[i]->Print();
+		cout << "-------------------------------------------------------" << endl;
 	}
-	else
-		cout << endl << "Список пуст !" << endl;
+
+	InformationCarrier** temp = new InformationCarrier * [m_size - 1];
+
+	for (int i = 0; i < m_size; i++)
+	{
+		if (i < number)
+		{
+			temp[i] = m_mediaList[i];
+		}
+		else if (i > number)
+		{
+			temp[i - 1] = m_mediaList[i];
+		}
+	}
+
+	delete m_mediaList[number];
+	delete[] m_mediaList;
+
+	m_size--;
+	m_mediaList = temp;
+	temp = nullptr;
 }
 
 // Изменение по номеру параметров носителя.

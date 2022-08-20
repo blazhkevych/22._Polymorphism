@@ -97,23 +97,37 @@ int main()
 				<< "\nДля продолжения нажмите любую клавишу." << endl;
 			_getch();
 			break;
-		case 2:														// 2. Удалить носитель. //
+		case 2:														// 2. Удалить носитель. // OK
 			system("cls");
 			cout << "Главное меню."
 				"\n\t2. Удалить носитель."
 				<< endl;
-			list.Delete(number);
-			cout << "\nГотово !" << endl
+			if (list.get_size() > 0)
+			{
+				list.Delete(number);
+				cout << "\nГотово !" << endl
+					<< "\nДля продолжения нажмите любую клавишу." << endl;
+				_getch();
+			}
+			else
+				cout << endl << "Список пуст !" << endl
 				<< "\nДля продолжения нажмите любую клавишу." << endl;
 			_getch();
 			break;
-		case 3: // 3. Печать носителей. // OK TODO: Дописать печать по видам носителей
+		case 3:														// 3. Печать носителей. // OK TODO: Дописать печать по видам носителей
 			system("cls");
 			cout << "Главное меню."
 				"\n\t3. Печать носителей."
 				<< endl;
-			list.PrintAll();
-			cout << "\nГотово !" << endl
+			if (list.get_size() > 0)
+			{
+				list.PrintAll();
+				cout << "\nГотово !" << endl
+					<< "\nДля продолжения нажмите любую клавишу." << endl;
+				_getch();
+			}
+			else
+				cout << endl << "Список пуст !" << endl
 				<< "\nДля продолжения нажмите любую клавишу." << endl;
 			_getch();
 			break;
@@ -122,11 +136,18 @@ int main()
 			cout << "Главное меню."
 				"\n\t4. Изменить носитель."
 				<< endl;
-			list.PrintAll();
-			cout << "\nВведите номер элемента в списке: ";
-			cin >> number;
-			list.Change(number);
-			cout << "\nГотово !" << endl
+			if (list.get_size() > 0)
+			{
+				list.PrintAll();
+				cout << "\nВведите номер элемента в списке: ";
+				cin >> number;
+				list.Change(number);
+				cout << "\nГотово !" << endl
+					<< "\nДля продолжения нажмите любую клавишу." << endl;
+				_getch();
+			}
+			else
+				cout << endl << "Список пуст !" << endl
 				<< "\nДля продолжения нажмите любую клавишу." << endl;
 			_getch();
 			break;
@@ -135,8 +156,15 @@ int main()
 			cout << "Главное меню."
 				"\n\t5. Поиск носителя."
 				<< endl;
-			list.Search();
-			cout << "\nГотово !" << endl
+			if (list.get_size() > 0)
+			{
+				list.Search();
+				cout << "\nГотово !" << endl
+					<< "\nДля продолжения нажмите любую клавишу." << endl;
+				_getch();
+			}
+			else
+				cout << endl << "Список пуст !" << endl
 				<< "\nДля продолжения нажмите любую клавишу." << endl;
 			_getch();
 			break;
