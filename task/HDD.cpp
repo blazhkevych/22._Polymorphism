@@ -59,11 +59,13 @@ void HDD::Print()
 // Запись объекта "HDD" в текстовый файл.
 void HDD::Write(ofstream& out)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Write(out);
+	out << "Скорость вращения шпинделя: " << m_speed << endl;
 }
 
 // Чтение объекта "HDD" из текстового файла.
 void HDD::Read(ifstream& in)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Read(in);
+	in >> m_speed;
 }

@@ -99,54 +99,19 @@ void InformationCarrier::Print()
 // Запись объекта "InformationCarrier" в текстовый файл.
 void InformationCarrier::Write(ofstream& out)
 {
-	/*if (!out.is_open())
-	{
-		cout << "Error!";
-		return;
-	}
-	ofstream out("output.txt");*/
-
-	/*std::string input;
-	std::cin >> input;
-	std::ofstream out("output.txt");
-	out << input;
-	out.close();*/
-
-	/*int size = _msize(m_companyName) + 1;
-	out.write((char*)&size, sizeof(size));
-	out.write((char*)m_companyName, size);
-
-	size = _msize(m_productModel) + 1;
-	out.write((char*)&size, sizeof(size));
-	out.write((char*)m_productModel, size);
-
-	size = _msize(m_productName) + 1;
-	out.write((char*)&size, sizeof(size));
-	out.write((char*)m_productName, size);
-
-	out.write((char*)&m_count, sizeof(m_count));
-	out.write((char*)&this->m_size, sizeof(this->m_size));*/
+	out << "Наименование: " << m_productName << endl // Пишем первым, для понимания что мы будем вычитывать из файла.
+		<< "Имя производителя: " << m_companyName << endl
+		<< "Модель: " << m_productModel << endl
+		<< "Ёмкость носителя: " << m_size << endl
+		<< "Количество носителей: " << m_count << endl;
 }
 
 // Чтение объекта "InformationCarrier" из текстового файла.
-void InformationCarrier::Read(ifstream& in) {
-	/*int sizes[3];
-	if (!in.is_open())
-	{
-		cout << "Error!";
-		return;
-	}*/
-
-
-	/*in.read((char*)&sizes[0], sizeof(sizes[0]));
-	in.read(m_companyName, sizes[0]);
-
-	in.read((char*)&sizes[1], sizeof(sizes[1]));
-	in.read(m_productModel, sizes[1]);
-
-	in.read((char*)&sizes[2], sizeof(sizes[2]));
-	in.read(m_productName, sizes[2]);
-
-	in.read((char*)&m_count, sizeof(m_count));
-	in.read((char*)&m_size, sizeof(m_size));*/
+void InformationCarrier::Read(ifstream& in)
+{
+	in >> m_productName;
+	in >> m_companyName;
+	in >> m_productModel;
+	in >> m_size;
+	in >> m_count;
 }

@@ -59,11 +59,13 @@ void DVD::Print()
 // Запись объекта "DVD" в текстовый файл.
 void DVD::Write(ofstream& out)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Write(out);
+	out << "Скорость записи: " << m_speed << endl;
 }
 
 // Чтение объекта "DVD" из текстового файла.
 void DVD::Read(ifstream& in)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Read(in);
+	in >> m_speed;
 }

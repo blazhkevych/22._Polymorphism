@@ -54,16 +54,19 @@ void USB::Print()
 	cout << endl;
 	InformationCarrier::Print();
 	cout << "Скорость USB: " << m_speed << endl;
+	// TODO: возможно для метода чтения из файла нужно после m_speed дописывать в файл пробел
 }
 
 // Запись объекта "USB" в текстовый файл.
 void USB::Write(ofstream& out)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Write(out);
+	out << "Скорость USB: " << m_speed << endl;
 }
 
 // Чтение объекта "USB" из текстового файла.
 void USB::Read(ifstream& in)
 {
-	// TODO: написать реализацию
+	InformationCarrier::Read(in);
+	in >> m_speed;
 }
