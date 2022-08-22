@@ -2,12 +2,10 @@
 
 #include "InformationCarrier.h"
 
-class HDD : public InformationCarrier // класс «Портативный жесткий диск»;
+class HDD : public InformationCarrier // Класс «Портативный жесткий диск».
 {
 	int m_speed; // Скорость вращения шпинделя.
 public:
-	// TODO: в каждом производном классе в конструкторе, при создании обьекта в поле "наименование" вписать USB/DVD/HDD
-	// возможно использовать type_id или просто в конструкторе жестко записать USB/DVD/HDD
 	// Конструктор без параметров.
 	HDD();
 
@@ -26,9 +24,6 @@ public:
 	// Получить значение поля "Скорость вращения шпинделя".
 	int get_speed();
 
-	// Заполнение обьекта "HDD" случайными данными.
-	void RandomFill() override;
-
 	// Печать объекта "HDD".
 	void Print() override;
 
@@ -38,4 +33,3 @@ public:
 	// Чтение объекта "HDD" из текстового файла.
 	void Read(ifstream& in) override;
 };
-

@@ -51,9 +51,9 @@ void InformationCarrier::set_allFields()
 {
 	cout << endl
 		<< "Имя производителя: ";
-	cin >> m_companyName;
+	getline(cin, m_companyName);
 	cout << "Модель: ";
-	cin >> m_productModel;
+	getline(cin, m_productModel);
 	cout << "Ёмкость носителя: ";
 	cin >> m_size;
 	cout << "Количество носителей: ";
@@ -75,17 +75,6 @@ int InformationCarrier::get_count() const { return m_count; }
 // Получить значение поля "Количество носителей".
 int InformationCarrier::get_size() const { return m_size; }
 
-// Заполнение объекта "InformationCarrier" случайными данными.
-void InformationCarrier::RandomFill()
-{
-	m_companyName = rand() % 27 + 65; // TODO: проверить как работает
-	m_productModel = rand() % 27 + 65; // TODO: проверить как работает
-	//m_productName = rand() % 27 + 65; // TODO: проверить как работает
-
-	m_count = rand() % 50;
-	m_size = rand() % 50;
-}
-
 // Печать объекта "InformationCarrier".
 void InformationCarrier::Print()
 {
@@ -99,19 +88,19 @@ void InformationCarrier::Print()
 // Запись объекта "InformationCarrier" в текстовый файл.
 void InformationCarrier::Write(ofstream& out)
 {
-	out << "Наименование: " << m_productName << endl // Пишем первым, для понимания что мы будем вычитывать из файла.
-		<< "Имя производителя: " << m_companyName << endl
-		<< "Модель: " << m_productModel << endl
-		<< "Ёмкость носителя: " << m_size << endl
-		<< "Количество носителей: " << m_count << endl;
+	out << m_productName << "\n" // Пишем первым, для понимания что мы будем вычитывать из файла.
+		<< m_companyName << "\n"
+		<< m_productModel << "\n"
+		<< m_size << "\n"
+		<< m_count << "\n";
 }
 
 // Чтение объекта "InformationCarrier" из текстового файла.
 void InformationCarrier::Read(ifstream& in)
 {
-	in >> m_productName;
-	in >> m_companyName;
-	in >> m_productModel;
+	in.get(); // Убираем "\n", который записан после количества записываемых в файл объектов.
+	getline(in, m_companyName);
+	getline(in, m_productModel);
 	in >> m_size;
 	in >> m_count;
 }

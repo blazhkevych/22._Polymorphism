@@ -1,6 +1,7 @@
 ﻿#include "USB.h"
 
 #include <iostream>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -41,27 +42,19 @@ int USB::get_speed()
 	return this->m_speed;
 }
 
-// Заполнение обьекта случайными данными.
-void USB::RandomFill()
-{
-	InformationCarrier::RandomFill();
-	m_speed = rand() % 50;
-}
-
 // Печать объекта "USB".
 void USB::Print()
 {
 	cout << endl;
 	InformationCarrier::Print();
 	cout << "Скорость USB: " << m_speed << endl;
-	// TODO: возможно для метода чтения из файла нужно после m_speed дописывать в файл пробел
 }
 
 // Запись объекта "USB" в текстовый файл.
 void USB::Write(ofstream& out)
 {
 	InformationCarrier::Write(out);
-	out << "Скорость USB: " << m_speed << endl;
+	out << m_speed << "\n";
 }
 
 // Чтение объекта "USB" из текстового файла.

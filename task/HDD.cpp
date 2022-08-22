@@ -1,6 +1,7 @@
 ﻿#include "HDD.h"
 
 #include <iostream>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -41,13 +42,6 @@ int HDD::get_speed()
 	return this->m_speed;
 }
 
-// Заполнение обьекта случайными данными.
-void HDD::RandomFill()
-{
-	InformationCarrier::RandomFill();
-	m_speed = rand() % 50;
-}
-
 // Печать объекта "HDD".
 void HDD::Print()
 {
@@ -60,7 +54,7 @@ void HDD::Print()
 void HDD::Write(ofstream& out)
 {
 	InformationCarrier::Write(out);
-	out << "Скорость вращения шпинделя: " << m_speed << endl;
+	out << m_speed << "\n";
 }
 
 // Чтение объекта "HDD" из текстового файла.

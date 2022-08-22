@@ -41,7 +41,7 @@ public:
 	void set_count(int count);
 
 	// Установить значения всех полей объекта "InformationCarrier".
-	virtual void set_allFields(); // TODO: переопределить в производных классах.
+	virtual void set_allFields();
 
 	// Получить значение поля "Имя производителя".
 	virtual string get_companyName();
@@ -58,15 +58,12 @@ public:
 	// Получить значение поля "Количество носителей".
 	int get_size() const;
 
-	// Заполнение объекта "InformationCarrier" случайными данными.
-	virtual void RandomFill(); // TODO: переопределить в производных классах.
-
 	// Печать объекта "InformationCarrier".
-	virtual void Print();// TODO: переопределить в производных классах.
+	virtual void Print();
 
 	// Запись объекта "InformationCarrier" в текстовый файл.
-	virtual void Write(ofstream& out);// TODO: переопределить в производных классах.
+	virtual void Write(ofstream& out);
 
 	// Чтение объекта "InformationCarrier" из текстового файла.
-	virtual void Read(ifstream& in);// TODO: переопределить в производных классах.
+	virtual void Read(ifstream& in);
 };

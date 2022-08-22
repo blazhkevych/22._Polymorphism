@@ -2,12 +2,10 @@
 
 #include "InformationCarrier.h"
 
-class DVD  : public InformationCarrier // класс «DVD–диск».
+class DVD : public InformationCarrier // Класс «DVD–диск».
 {
 	int m_speed; // Скорость записи.
 public:
-	// TODO: в каждом производном классе в конструкторе, при создании обьекта в поле "наименование" вписать USB/DVD/HDD
-	// возможно использовать type_id или просто в конструкторе жестко записать USB/DVD/HDD
 	// Конструктор без параметров.
 	DVD();
 
@@ -25,9 +23,6 @@ public:
 
 	// Получить значение поля "Скорость записи".
 	int get_speed();
-
-	// Заполнение обьекта "DVD" случайными данными.
-	void RandomFill() override;
 
 	// Печать объекта "DVD".
 	void Print() override;

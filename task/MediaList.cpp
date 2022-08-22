@@ -1,7 +1,7 @@
 #include "MediaList.h"
 
 #include <iostream>
-#include<fstream>
+#include <fstream>
 
 #include "DVD.h"
 #include "HDD.h"
@@ -59,7 +59,7 @@ void MediaList::AddDevice()
 		cout << "\n(1 - USB, 2 - DVD, 3 - HDD): ";
 		int type;
 		cin >> type;
-
+		cin.get();
 		switch (type)
 		{
 		case 1:
@@ -97,17 +97,6 @@ void MediaList::PrintAll() const
 // Печать выборки из списка уcтройств.
 void MediaList::PrintSelective(int choice) const
 {
-	//bool choiceUSB{ false };
-	//bool choiceHDD{ false };
-	//bool choiceDVD{ false };
-
-	//if (choice == 2)		// 2. Печать всех USB.
-	//	choiceUSB = true;
-	//else if (choice == 3)	// 3. Печать всех HDD.
-	//	choiceHDD = true;
-	//else					// 4. Печать всех DVD.
-	//	choiceDVD = true;
-
 	int carriersPrinted{ 0 };
 	for (int i = 0; i < m_size; i++)
 	{
@@ -142,11 +131,6 @@ void MediaList::PrintSelective(int choice) const
 		 *if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
 			m_mediaList[i]->PrintAll();*/
 	}
-
-	/*choiceUSB = false;
-	choiceHDD = false;
-	choiceDVD = false;*/
-
 	cout << endl << "Всего распечатано " << carriersPrinted << " устройств." << endl;
 }
 
@@ -154,12 +138,6 @@ void MediaList::PrintSelective(int choice) const
 void MediaList::Delete(int number)
 {
 	number = number - 1;
-	/*for (int i = 0; i < m_size; i++)
-	{
-		cout << endl << "Устройство № " << i + 1 << endl;
-		m_mediaList[i]->Print();
-		cout << "-------------------------------------------------------" << endl;
-	}*/
 
 	InformationCarrier** temp = new InformationCarrier * [m_size - 1];
 
@@ -184,7 +162,7 @@ void MediaList::Delete(int number)
 }
 
 // Изменение по номеру параметров носителя.
-void MediaList::Change(int number) // TODO: определённых параметров носителя !!!! доработать.
+void MediaList::Change(int number)
 {
 	number = number - 1;
 	cout << endl << "Что будем изменять ?"
@@ -196,19 +174,20 @@ void MediaList::Change(int number) // TODO: определённых параметров носителя !!!
 		<< "\nВведите номер поля для изменения, затем его значение >>> : ";
 	int var;
 	cin >> var;
+	cin.get();
 	switch (var)
 	{
 	case 1: // Имя производителя.
 	{
 		string temp;
-		cin >> temp;
+		getline(cin, temp);
 		m_mediaList[number]->set_companyName(temp);
 		break;
 	}
 	case 2: // Модель.
 	{
 		string temp;
-		cin >> temp;
+		getline(cin, temp);
 		m_mediaList[number]->set_productModel(temp);
 		break;
 	}
@@ -268,7 +247,7 @@ void MediaList::Search()
 	case 1:
 	{
 		string temp;
-		cin >> temp;
+		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
 			if (m_mediaList[i]->get_companyName() == temp) // Имя производителя.
 			{
@@ -283,7 +262,7 @@ void MediaList::Search()
 	case 2:
 	{
 		string temp;
-		cin >> temp;
+		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
 			if (m_mediaList[i]->get_productModel() == temp) // Модель.
 			{
@@ -298,7 +277,7 @@ void MediaList::Search()
 	case 3:
 	{
 		string temp;
-		cin >> temp;
+		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
 			if (m_mediaList[i]->get_productName() == temp) // Наименование.
 			{
@@ -400,7 +379,7 @@ void MediaList::Save()
 		return;
 	}
 
-	out << m_size << endl; // Записываем количество елементов в массиве.
+	out << m_size << "\n"; // Записываем количество елементов в массиве.
 
 	for (int i = 0; i < m_size; i++)
 	{
@@ -415,7 +394,7 @@ void MediaList::Save()
 }
 
 // Загрузка из файла.
-void MediaList::Load() // TODO:снова падает на принтОлл, проблема с индексом, как и в прошлые разы.
+void MediaList::Load()
 {
 	// Создаём входной файловый поток и присоединяем к нему файл, который открывается на чтение в текстовом режиме.
 	ifstream in("data.txt");
@@ -426,24 +405,33 @@ void MediaList::Load() // TODO:снова падает на принтОлл, проблема с индексом, ка
 	}
 
 	in >> m_size; // Считываем количество записанных объектов в файле.
-	//InformationCarrier** temp = new InformationCarrier * [m_size + deviceCount];
 	m_mediaList = new InformationCarrier * [m_size];
 
-	string productName{};		// Наименование. 
-	string companyName{};		// Имя производителя.
-	string productModel{};		// Модель.
-	int size{};					// Ёмкость носителя.
-	int count{};				// Количество носителей.
-
-	//enum devices { USB = 1, };
+	string productName{}; // Наименование. 
 
 	for (int i = 0; i < m_size; i++)
 	{
+		getline(in, productName);
 		in >> productName;
 
-		if (companyName == "USB")
+		if (productName == "USB")
 		{
 			m_mediaList[i] = new USB;
+			m_mediaList[i]->set_productName(productName);
+			m_mediaList[i]->Read(in);
+			continue;
+		}
+		if (productName == "HDD")
+		{
+			m_mediaList[i] = new HDD;
+			m_mediaList[i]->set_productName(productName);
+			m_mediaList[i]->Read(in);
+			continue;
+		}
+		if (productName == "DVD")
+		{
+			m_mediaList[i] = new DVD;
+			m_mediaList[i]->set_productName(productName);
 			m_mediaList[i]->Read(in);
 		}
 	}

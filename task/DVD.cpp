@@ -1,6 +1,7 @@
 ﻿#include "DVD.h"
 
 #include <iostream>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -41,13 +42,6 @@ int DVD::get_speed()
 	return this->m_speed;
 }
 
-// Заполнение обьекта случайными данными.
-void DVD::RandomFill()
-{
-	InformationCarrier::RandomFill();
-	m_speed = rand() % 50;
-}
-
 // Печать объекта "DVD".
 void DVD::Print()
 {
@@ -60,7 +54,7 @@ void DVD::Print()
 void DVD::Write(ofstream& out)
 {
 	InformationCarrier::Write(out);
-	out << "Скорость записи: " << m_speed << endl;
+	out << m_speed << "\n";
 }
 
 // Чтение объекта "DVD" из текстового файла.
