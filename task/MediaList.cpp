@@ -382,14 +382,8 @@ void MediaList::Save()
 	out << m_size << "\n"; // Записываем количество елементов в массиве.
 
 	for (int i = 0; i < m_size; i++)
-	{
-		if (typeid(*m_mediaList[i]) == typeid(USB))
-			m_mediaList[i]->Write(out);
-		if (typeid(*m_mediaList[i]) == typeid(HDD))
-			m_mediaList[i]->Write(out);
-		if (typeid(*m_mediaList[i]) == typeid(DVD))
-			m_mediaList[i]->Write(out);
-	}
+		m_mediaList[i]->Write(out);
+
 	out.close(); // Закрываем файловый поток.
 }
 

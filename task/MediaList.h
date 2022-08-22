@@ -18,7 +18,7 @@ public:
 	void AddDevice();
 
 	// Печать всего списка уcтройств.
-	void PrintAll() const;
+	void PrintAll() const;	
 
 	// Печать выборки из списка уcтройств.
 	void PrintSelective(int choice) const;
