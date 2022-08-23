@@ -1,4 +1,4 @@
-#include "MediaList.h"
+п»ї#include "MediaList.h"
 
 #include <iostream>
 #include <fstream>
@@ -12,14 +12,14 @@ using std::cin;
 using std::endl;
 using std::ios_base;
 
-// Конструктор по умолчанию.
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
 MediaList::MediaList()
 {
 	m_mediaList = nullptr;
 	m_size = 0;
 }
 
-// Деструктор.
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 MediaList::~MediaList()
 {
 	for (int i = 0; i < m_size; i++)
@@ -27,19 +27,19 @@ MediaList::~MediaList()
 	delete[] m_mediaList;
 }
 
-// Получить количество устройств в списке.
+// РџРѕР»СѓС‡РёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓСЃС‚СЂРѕР№СЃС‚РІ РІ СЃРїРёСЃРєРµ.
 int MediaList::get_size() const
 {
 	return m_size;
 }
 
-// Добавление устройства.
+// Р”РѕР±Р°РІР»РµРЅРёРµ СѓСЃС‚СЂРѕР№СЃС‚РІР°.
 void MediaList::AddDevice()
 {
 	int deviceCount{ 0 };
 	do
 	{
-		cout << "\nВведите количество устройств для добавления в список: ";
+		cout << "\nР’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓСЃС‚СЂРѕР№СЃС‚РІ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РІ СЃРїРёСЃРѕРє: ";
 		cin >> deviceCount;
 		cin.get();
 	} while (deviceCount <= 0);
@@ -53,7 +53,7 @@ void MediaList::AddDevice()
 	int inputNumOfStud{ 1 };
 	for (int i = m_size; i < m_size + deviceCount; i++)
 	{
-		cout << "\nВыберите тип " << inputNumOfStud << " устройства: ";
+		cout << "\nР’С‹Р±РµСЂРёС‚Рµ С‚РёРї " << inputNumOfStud << " СѓСЃС‚СЂРѕР№СЃС‚РІР°: ";
 		inputNumOfStud++;
 
 		cout << "\n(1 - USB, 2 - DVD, 3 - HDD): ";
@@ -83,58 +83,58 @@ void MediaList::AddDevice()
 	temp = nullptr;
 }
 
-// Печать всего списка уcтройств.
+// РџРµС‡Р°С‚СЊ РІСЃРµРіРѕ СЃРїРёСЃРєР° СѓcС‚СЂРѕР№СЃС‚РІ.
 void MediaList::PrintAll() const
 {
 	for (int i = 0; i < m_size; i++)
 	{
-		cout << endl << "Устройство № " << i + 1 << endl;
+		cout << endl << "РЈСЃС‚СЂРѕР№СЃС‚РІРѕ в„– " << i + 1 << endl;
 		m_mediaList[i]->Print();
 		cout << "-------------------------------------------------------" << endl;
 	}
 }
 
-// Печать выборки из списка уcтройств.
+// РџРµС‡Р°С‚СЊ РІС‹Р±РѕСЂРєРё РёР· СЃРїРёСЃРєР° СѓcС‚СЂРѕР№СЃС‚РІ.
 void MediaList::PrintSelective(int choice) const
 {
 	int carriersPrinted{ 0 };
 	for (int i = 0; i < m_size; i++)
 	{
-		if (typeid(*m_mediaList[i]) == typeid(USB) && choice == 2) // Печать только USB.			
+		if (typeid(*m_mediaList[i]) == typeid(USB) && choice == 2) // РџРµС‡Р°С‚СЊ С‚РѕР»СЊРєРѕ USB.			
 		{
 			carriersPrinted++;
-			cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+			cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 				<< "-------------------------------------------------------";
 			m_mediaList[i]->Print();
 			cout << "-------------------------------------------------------" << endl;
 		}
 
-		if (typeid(*m_mediaList[i]) == typeid(HDD) && choice == 3) // Печать только HDD.			
+		if (typeid(*m_mediaList[i]) == typeid(HDD) && choice == 3) // РџРµС‡Р°С‚СЊ С‚РѕР»СЊРєРѕ HDD.			
 		{
 			carriersPrinted++;
-			cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+			cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 				<< "-------------------------------------------------------";
 			m_mediaList[i]->Print();
 			cout << "-------------------------------------------------------" << endl;
 		}
 
-		if (typeid(*m_mediaList[i]) == typeid(DVD) && choice == 4)// Печать только DVD.		
+		if (typeid(*m_mediaList[i]) == typeid(DVD) && choice == 4)// РџРµС‡Р°С‚СЊ С‚РѕР»СЊРєРѕ DVD.		
 		{
 			carriersPrinted++;
-			cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+			cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 				<< "-------------------------------------------------------";
 			m_mediaList[i]->Print();
 			cout << "-------------------------------------------------------" << endl;
 		}
 
-		/* или проще, по идее тоже должно работать.
+		/* РёР»Рё РїСЂРѕС‰Рµ, РїРѕ РёРґРµРµ С‚РѕР¶Рµ РґРѕР»Р¶РЅРѕ СЂР°Р±РѕС‚Р°С‚СЊ.
 		 *if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
 			m_mediaList[i]->PrintAll();*/
 	}
-	cout << endl << "Всего распечатано " << carriersPrinted << " устройств." << endl;
+	cout << endl << "Р’СЃРµРіРѕ СЂР°СЃРїРµС‡Р°С‚Р°РЅРѕ " << carriersPrinted << " СѓСЃС‚СЂРѕР№СЃС‚РІ." << endl;
 }
 
-// Удаление устройства по номеру.
+// РЈРґР°Р»РµРЅРёРµ СѓСЃС‚СЂРѕР№СЃС‚РІР° РїРѕ РЅРѕРјРµСЂСѓ.
 void MediaList::Delete(int number)
 {
 	number = number - 1;
@@ -161,51 +161,51 @@ void MediaList::Delete(int number)
 	temp = nullptr;
 }
 
-// Изменение по номеру параметров носителя.
+// РР·РјРµРЅРµРЅРёРµ РїРѕ РЅРѕРјРµСЂСѓ РїР°СЂР°РјРµС‚СЂРѕРІ РЅРѕСЃРёС‚РµР»СЏ.
 void MediaList::Change(int number)
 {
 	number = number - 1;
-	cout << endl << "Что будем изменять ?"
-		<< "\n1 - Имя производителя."
-		<< "\n2 - Модель."
-		<< "\n3 - Ёмкость носителя."
-		<< "\n4 - Количество носителей."
-		<< "\n5 - Скорость."
-		<< "\nВведите номер поля для изменения, затем его значение >>> : ";
+	cout << endl << "Р§С‚Рѕ Р±СѓРґРµРј РёР·РјРµРЅСЏС‚СЊ ?"
+		<< "\n1 - РРјСЏ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ."
+		<< "\n2 - РњРѕРґРµР»СЊ."
+		<< "\n3 - РЃРјРєРѕСЃС‚СЊ РЅРѕСЃРёС‚РµР»СЏ."
+		<< "\n4 - РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕСЃРёС‚РµР»РµР№."
+		<< "\n5 - РЎРєРѕСЂРѕСЃС‚СЊ."
+		<< "\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РїРѕР»СЏ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ, Р·Р°С‚РµРј РµРіРѕ Р·РЅР°С‡РµРЅРёРµ >>> : ";
 	int var;
 	cin >> var;
 	cin.get();
 	switch (var)
 	{
-	case 1: // Имя производителя.
+	case 1: // РРјСЏ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.
 	{
 		string temp;
 		getline(cin, temp);
 		m_mediaList[number]->set_companyName(temp);
 		break;
 	}
-	case 2: // Модель.
+	case 2: // РњРѕРґРµР»СЊ.
 	{
 		string temp;
 		getline(cin, temp);
 		m_mediaList[number]->set_productModel(temp);
 		break;
 	}
-	case 3: // Ёмкость носителя.
+	case 3: // РЃРјРєРѕСЃС‚СЊ РЅРѕСЃРёС‚РµР»СЏ.
 	{
 		int temp;
 		cin >> temp;
 		m_mediaList[number]->set_size(temp);
 		break;
 	}
-	case 4: // Количество носителей.
+	case 4: // РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕСЃРёС‚РµР»РµР№.
 	{
 		int temp;
 		cin >> temp;
 		m_mediaList[number]->set_count(temp);
 		break;
 	}
-	case 5: // Скорость.
+	case 5: // РЎРєРѕСЂРѕСЃС‚СЊ.
 	{
 		int temp;
 		cin >> temp;
@@ -223,23 +223,23 @@ void MediaList::Change(int number)
 		break;
 	}
 	default:
-		cout << "Ошибка!" << endl;
+		cout << "РћС€РёР±РєР°!" << endl;
 		break;
 	}
 }
 
-// Поиск по заданному критерию.
+// РџРѕРёСЃРє РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РєСЂРёС‚РµСЂРёСЋ.
 void MediaList::Search()
 {
-	int carriersFound{ 0 }; // Общее найденное количество носителей.
-	cout << endl << "Что будем искать ?"
-		<< "\n1 - Имя производителя."
-		<< "\n2 - Модель."
-		<< "\n3 - Наименование."
-		<< "\n4 - Ёмкость носителя."
-		<< "\n5 - Количество носителей."
-		<< "\n6 - Скорость."
-		<< "\nВведите номер критерия для поиска, затем его значение >>> : ";
+	int carriersFound{ 0 }; // РћР±С‰РµРµ РЅР°Р№РґРµРЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕСЃРёС‚РµР»РµР№.
+	cout << endl << "Р§С‚Рѕ Р±СѓРґРµРј РёСЃРєР°С‚СЊ ?"
+		<< "\n1 - РРјСЏ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ."
+		<< "\n2 - РњРѕРґРµР»СЊ."
+		<< "\n3 - РќР°РёРјРµРЅРѕРІР°РЅРёРµ."
+		<< "\n4 - РЃРјРєРѕСЃС‚СЊ РЅРѕСЃРёС‚РµР»СЏ."
+		<< "\n5 - РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕСЃРёС‚РµР»РµР№."
+		<< "\n6 - РЎРєРѕСЂРѕСЃС‚СЊ."
+		<< "\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РєСЂРёС‚РµСЂРёСЏ РґР»СЏ РїРѕРёСЃРєР°, Р·Р°С‚РµРј РµРіРѕ Р·РЅР°С‡РµРЅРёРµ >>> : ";
 	int var;
 	cin >> var;
 	switch (var)
@@ -249,10 +249,10 @@ void MediaList::Search()
 		string temp;
 		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
-			if (m_mediaList[i]->get_companyName() == temp) // Имя производителя.
+			if (m_mediaList[i]->get_companyName() == temp) // РРјСЏ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.
 			{
 				carriersFound++;
-				cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+				cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 					<< "-------------------------------------------------------";
 				m_mediaList[i]->Print();
 				cout << "-------------------------------------------------------" << endl;
@@ -264,10 +264,10 @@ void MediaList::Search()
 		string temp;
 		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
-			if (m_mediaList[i]->get_productModel() == temp) // Модель.
+			if (m_mediaList[i]->get_productModel() == temp) // РњРѕРґРµР»СЊ.
 			{
 				carriersFound++;
-				cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+				cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 					<< "-------------------------------------------------------";
 				m_mediaList[i]->Print();
 				cout << "-------------------------------------------------------" << endl;
@@ -279,10 +279,10 @@ void MediaList::Search()
 		string temp;
 		getline(cin, temp);
 		for (int i = 0; i < m_size; i++)
-			if (m_mediaList[i]->get_productName() == temp) // Наименование.
+			if (m_mediaList[i]->get_productName() == temp) // РќР°РёРјРµРЅРѕРІР°РЅРёРµ.
 			{
 				carriersFound++;
-				cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+				cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 					<< "-------------------------------------------------------";
 				m_mediaList[i]->Print();
 				cout << "-------------------------------------------------------" << endl;
@@ -294,10 +294,10 @@ void MediaList::Search()
 		int temp;
 		cin >> temp;
 		for (int i = 0; i < m_size; i++)
-			if (m_mediaList[i]->get_size() == temp) // Ёмкость носителя.
+			if (m_mediaList[i]->get_size() == temp) // РЃРјРєРѕСЃС‚СЊ РЅРѕСЃРёС‚РµР»СЏ.
 			{
 				carriersFound++;
-				cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+				cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 					<< "-------------------------------------------------------";
 				m_mediaList[i]->Print();
 				cout << "-------------------------------------------------------" << endl;
@@ -309,10 +309,10 @@ void MediaList::Search()
 		int temp;
 		cin >> temp;
 		for (int i = 0; i < m_size; i++)
-			if (m_mediaList[i]->get_count() == temp) // Количество носителей.
+			if (m_mediaList[i]->get_count() == temp) // РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕСЃРёС‚РµР»РµР№.
 			{
 				carriersFound++;
-				cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+				cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 					<< "-------------------------------------------------------";
 				m_mediaList[i]->Print();
 				cout << "-------------------------------------------------------" << endl;
@@ -325,11 +325,11 @@ void MediaList::Search()
 		cin >> temp;
 		for (int i = 0; i < m_size; i++)
 		{
-			if (typeid(*m_mediaList[i]) == typeid(USB)) // Скорость.
+			if (typeid(*m_mediaList[i]) == typeid(USB)) // РЎРєРѕСЂРѕСЃС‚СЊ.
 				if (dynamic_cast<USB*>(m_mediaList[i])->get_speed() == temp)
 				{
 					carriersFound++;
-					cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+					cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 						<< "-------------------------------------------------------";
 					m_mediaList[i]->Print();
 					cout << "-------------------------------------------------------" << endl;
@@ -339,7 +339,7 @@ void MediaList::Search()
 				if (dynamic_cast<HDD*>(m_mediaList[i])->get_speed() == temp)
 				{
 					carriersFound++;
-					cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+					cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 						<< "-------------------------------------------------------";
 					m_mediaList[i]->Print();
 					cout << "-------------------------------------------------------" << endl;
@@ -349,59 +349,59 @@ void MediaList::Search()
 				if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
 				{
 					carriersFound++;
-					cout << endl << "Порядковый номер в списке: " << i + 1 << endl << endl
+					cout << endl << "РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ СЃРїРёСЃРєРµ: " << i + 1 << endl << endl
 						<< "-------------------------------------------------------";
 					m_mediaList[i]->Print();
 					cout << "-------------------------------------------------------" << endl;
 				}
 
-			/* или проще, по идее тоже должно работать.
+			/* РёР»Рё РїСЂРѕС‰Рµ, РїРѕ РёРґРµРµ С‚РѕР¶Рµ РґРѕР»Р¶РЅРѕ СЂР°Р±РѕС‚Р°С‚СЊ.
 			 *if (dynamic_cast<DVD*>(m_mediaList[i])->get_speed() == temp)
 				m_mediaList[i]->PrintAll();*/
 		}
 		break;
 	}
 	default:
-		cout << "Ошибка!" << endl;
+		cout << "РћС€РёР±РєР°!" << endl;
 		break;
 	}
-	cout << endl << "Всего найдено " << carriersFound << " носителей." << endl;
+	cout << endl << "Р’СЃРµРіРѕ РЅР°Р№РґРµРЅРѕ " << carriersFound << " РЅРѕСЃРёС‚РµР»РµР№." << endl;
 }
 
-// Сохранение в файл.
+// РЎРѕС…СЂР°РЅРµРЅРёРµ РІ С„Р°Р№Р».
 void MediaList::Save()
 {
-	// Создаём выходной файловый поток и присоединяем к нему файл, который открывается на запись в текстовом режиме.
+	// РЎРѕР·РґР°С‘Рј РІС‹С…РѕРґРЅРѕР№ С„Р°Р№Р»РѕРІС‹Р№ РїРѕС‚РѕРє Рё РїСЂРёСЃРѕРµРґРёРЅСЏРµРј Рє РЅРµРјСѓ С„Р°Р№Р», РєРѕС‚РѕСЂС‹Р№ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РЅР° Р·Р°РїРёСЃСЊ РІ С‚РµРєСЃС‚РѕРІРѕРј СЂРµР¶РёРјРµ.
 	ofstream out("data.txt", ios_base::out | ios_base::trunc);
-	if (!out.is_open()) // Если открытие файла завершилось неудачей - выходим.
+	if (!out.is_open()) // Р•СЃР»Рё РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° Р·Р°РІРµСЂС€РёР»РѕСЃСЊ РЅРµСѓРґР°С‡РµР№ - РІС‹С…РѕРґРёРј.
 	{
 		cout << "Error!\n";
 		return;
 	}
 
-	out << m_size << "\n"; // Записываем количество елементов в массиве.
+	out << m_size << "\n"; // Р—Р°РїРёСЃС‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РµР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ.
 
 	for (int i = 0; i < m_size; i++)
 		m_mediaList[i]->Write(out);
 
-	out.close(); // Закрываем файловый поток.
+	out.close(); // Р—Р°РєСЂС‹РІР°РµРј С„Р°Р№Р»РѕРІС‹Р№ РїРѕС‚РѕРє.
 }
 
-// Загрузка из файла.
+// Р—Р°РіСЂСѓР·РєР° РёР· С„Р°Р№Р»Р°.
 void MediaList::Load()
 {
-	// Создаём входной файловый поток и присоединяем к нему файл, который открывается на чтение в текстовом режиме.
+	// РЎРѕР·РґР°С‘Рј РІС…РѕРґРЅРѕР№ С„Р°Р№Р»РѕРІС‹Р№ РїРѕС‚РѕРє Рё РїСЂРёСЃРѕРµРґРёРЅСЏРµРј Рє РЅРµРјСѓ С„Р°Р№Р», РєРѕС‚РѕСЂС‹Р№ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РЅР° С‡С‚РµРЅРёРµ РІ С‚РµРєСЃС‚РѕРІРѕРј СЂРµР¶РёРјРµ.
 	ifstream in("data.txt");
-	if (!in.is_open()) // Если открытие файла завершилось неудачей - выходим.
+	if (!in.is_open()) // Р•СЃР»Рё РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° Р·Р°РІРµСЂС€РёР»РѕСЃСЊ РЅРµСѓРґР°С‡РµР№ - РІС‹С…РѕРґРёРј.
 	{
 		cout << "Error!\n";
 		return;
 	}
 
-	in >> m_size; // Считываем количество записанных объектов в файле.
+	in >> m_size; // РЎС‡РёС‚С‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїРёСЃР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ РІ С„Р°Р№Р»Рµ.
 	m_mediaList = new InformationCarrier * [m_size];
 
-	string productName{}; // Наименование. 
+	string productName{}; // РќР°РёРјРµРЅРѕРІР°РЅРёРµ. 
 
 	for (int i = 0; i < m_size; i++)
 	{
